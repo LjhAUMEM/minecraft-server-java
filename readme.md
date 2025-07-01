@@ -1,4 +1,4 @@
-## 仓库中 bin 文件版本
+## 仓库中 bin 文件来源以及版本
 - https://github.com/nezhahq/agent/releases/tag/v1.13.0
 - https://github.com/cloudflare/cloudflared/releases/tag/2025.6.1
 - https://github.com/XTLS/Xray-core/releases/tag/v25.6.8
@@ -31,6 +31,7 @@ java -Xms128M -Xmx256M -jar server.jar
 ```
 server=xxx
 client_secret=xxx
+uuid=xxx
 token=xxx
 vless_xhttp_domain=xxx
 vmess_xhttp_domain=xxx
@@ -39,7 +40,7 @@ tuic_port=28075
 ```
 经过编码后为
 ```
-c2VydmVyPXh4eA0KY2xpZW50X3NlY3JldD14eHgNCnRva2VuPXh4eA0Kdmxlc3NfeGh0dHBfZG9tYWluPXh4eA0Kdm1lc3NfeGh0dHBfZG9tYWluPXh4eA0Kd3NfZG9tYWluPXh4eA0KdHVpY19wb3J0PTI4MDc1
+c2VydmVyPXh4eA0KY2xpZW50X3NlY3JldD14eHgNCnV1aWQ9eHh4DQp0b2tlbj14eHgNCnZsZXNzX3hodHRwX2RvbWFpbj14eHgNCnZtZXNzX3hodHRwX2RvbWFpbj14eHgNCndzX2RvbWFpbj14eHgNCnR1aWNfcG9ydD0yODA3NQ
 ```
 
 ## 部署方式二：修改内置变量直接编译

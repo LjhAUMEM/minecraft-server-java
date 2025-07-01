@@ -1,21 +1,18 @@
 public class Main {
     public static java.nio.file.Path extract(String original, String name, String suffix, boolean exec) throws Exception {
-        java.io.InputStream in = Main.class.getResourceAsStream("/" + original);
+        try (java.io.InputStream in = Main.class.getResourceAsStream("/" + original)) {
+            java.nio.file.Path tmp = java.nio.file.Paths.get(System.getProperty("java.io.tmpdir"));
+            java.nio.file.Path file = tmp.resolve(suffix == null ? name : name + "." + suffix);
+            java.nio.file.Files.createFile(file);
+            file.toFile().deleteOnExit();
 
-        // java.nio.file.Path file = java.nio.file.Files.createTempFile(name, suffix);
-        // file.toFile().deleteOnExit();
-
-        java.nio.file.Path tmp = java.nio.file.Paths.get(System.getProperty("java.io.tmpdir"));
-        java.nio.file.Path file = tmp.resolve(suffix == null ? name : name + "." + suffix);
-        java.nio.file.Files.createFile(file);
-        file.toFile().deleteOnExit();
-
-        java.nio.file.Files.copy(in, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-        if (exec) {
-            file.toFile().setExecutable(true);
+            java.nio.file.Files.copy(in, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            if (exec) {
+                file.toFile().setExecutable(true);
+            }
+            // System.out.println(file.toString());
+            return file;
         }
-        // System.out.println(file.toString());
-        return file;
     }
     public static void main(String[] args) throws Exception {
         System.setProperty("java.net.preferIPv4Stack", "true");

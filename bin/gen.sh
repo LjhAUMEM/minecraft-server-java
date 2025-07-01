@@ -39,74 +39,74 @@ tuic_uuid=${34:-""}
 tuic_pass=${35:-""}
 tuic_sni=${36:-"example.com"}
 
-echo "xray_path: $xray_path"
-echo "singbox_path: $singbox_path"
-echo "cert_path: $cert_path"
-echo "key_path: $key_path"
-echo "output_name: $output_name"
-echo "ip: $ip"
+# echo "xray_path: $xray_path"
+# echo "singbox_path: $singbox_path"
+# echo "cert_path: $cert_path"
+# echo "key_path: $key_path"
+# echo "output_name: $output_name"
+# echo "ip: $ip"
 
-echo "vless_xhttp_port: $vless_xhttp_port"
-echo "vless_xhttp_domain: $vless_xhttp_domain"
-echo "vmess_xhttp_port: $vmess_xhttp_port"
-echo "vmess_xhttp_domain: $vmess_xhttp_domain"
-echo "ws_port: $ws_port"
-echo "ws_domain: $ws_domain"
-echo "vless_ws_port: $vless_ws_port"
-echo "vmess_ws_port: $vmess_ws_port"
-echo "trojan_ws_port: $trojan_ws_port"
-echo "tcp_reality_port: $tcp_reality_port"
-echo "xhttp_reality_port: $xhttp_reality_port"
-echo "hy2_port: $hy2_port"
-echo "tuic_port: $tuic_port"
+# echo "vless_xhttp_port: $vless_xhttp_port"
+# echo "vless_xhttp_domain: $vless_xhttp_domain"
+# echo "vmess_xhttp_port: $vmess_xhttp_port"
+# echo "vmess_xhttp_domain: $vmess_xhttp_domain"
+# echo "ws_port: $ws_port"
+# echo "ws_domain: $ws_domain"
+# echo "vless_ws_port: $vless_ws_port"
+# echo "vmess_ws_port: $vmess_ws_port"
+# echo "trojan_ws_port: $trojan_ws_port"
+# echo "tcp_reality_port: $tcp_reality_port"
+# echo "xhttp_reality_port: $xhttp_reality_port"
+# echo "hy2_port: $hy2_port"
+# echo "tuic_port: $tuic_port"
 
-echo "xhttp_path: $xhttp_path"
-echo "vless_ws_path: $vless_ws_path"
-echo "vmess_ws_path: $vmess_ws_path"
-echo "trojan_ws_path: $trojan_ws_path"
-echo "xray_uuid: $xray_uuid"
-echo "reality_target: $reality_target"
-echo "reality_private_key: $reality_private_key"
-echo "reality_public_key: $reality_public_key"
-echo "reality_sni: $reality_sni"
-echo "reality_short_id: $reality_short_id"
-echo "hy2_pass: $hy2_pass"
-echo "hy2_obfs: $hy2_obfs"
-echo "hy2_masquerade: $hy2_masquerade"
-echo "hy2_sni: $hy2_sni"
-echo "tuic_uuid: $tuic_uuid"
-echo "tuic_pass: $tuic_pass"
-echo "tuic_sni: $tuic_sni"
+# echo "xhttp_path: $xhttp_path"
+# echo "vless_ws_path: $vless_ws_path"
+# echo "vmess_ws_path: $vmess_ws_path"
+# echo "trojan_ws_path: $trojan_ws_path"
+# echo "xray_uuid: $xray_uuid"
+# echo "reality_target: $reality_target"
+# echo "reality_private_key: $reality_private_key"
+# echo "reality_public_key: $reality_public_key"
+# echo "reality_sni: $reality_sni"
+# echo "reality_short_id: $reality_short_id"
+# echo "hy2_pass: $hy2_pass"
+# echo "hy2_obfs: $hy2_obfs"
+# echo "hy2_masquerade: $hy2_masquerade"
+# echo "hy2_sni: $hy2_sni"
+# echo "tuic_uuid: $tuic_uuid"
+# echo "tuic_pass: $tuic_pass"
+# echo "tuic_sni: $tuic_sni"
 
 xray() {
     if [ "$xhttp_path" = "" ]; then
-        xhttp_path=$($xray_path uuid)
+        xhttp_path=$(${xray_path} uuid)
         xhttp_path=${xhttp_path:0:8}
     fi
     if [ "$vless_ws_path" = "" ]; then
-        vless_ws_path=$($xray_path uuid)
+        vless_ws_path=$(${xray_path} uuid)
         vless_ws_path=${vless_ws_path:0:8}
     fi
     if [ "$vmess_ws_path" = "" ]; then
-        vmess_ws_path=$($xray_path uuid)
+        vmess_ws_path=$(${xray_path} uuid)
         vmess_ws_path=${vmess_ws_path:0:8}
     fi
     if [ "$trojan_ws_path" = "" ]; then
-        trojan_ws_path=$($xray_path uuid)
+        trojan_ws_path=$(${xray_path} uuid)
         trojan_ws_path=${trojan_ws_path:0:8}
     fi
     if [ "$xray_uuid" = "" ]; then
-        xray_uuid=$($xray_path uuid)
+        xray_uuid=$(${xray_path} uuid)
     fi
     if [ "$reality_private_key" = "" ]; then
-        reality_keypair=$($xray_path x25519)
+        reality_keypair=$(${xray_path} x25519)
         # reality_private_key=$(echo "$reality_keypair" | grep -oP 'Private key: \K\S+')
         # reality_public_key=$(echo "$reality_keypair" | grep -oP 'Public key: \K\S+')
         reality_private_key=$(echo "$reality_keypair" | awk '/Private key:/ {print $3}')
         reality_public_key=$(echo "$reality_keypair" | awk '/Public key:/ {print $3}')
     fi
     if [ "$reality_short_id" = "" ]; then
-        reality_short_id=$($xray_path uuid)
+        reality_short_id=$(${xray_path} uuid)
         reality_short_id=${reality_short_id:0:8}
     fi
 
@@ -309,25 +309,25 @@ xray() {
         }
     ]
 }" > config.json
-    nohup $xray_path &>/dev/null &
+    nohup ${xray_path} &>/dev/null &
     sleep 1
     rm config.json
 }
 
 singbox() {
     if [ "$hy2_pass" = "" ]; then
-        hy2_pass=$($singbox_path generate uuid)
+        hy2_pass=$(${singbox_path} generate uuid)
         hy2_pass=${hy2_pass:0:8}
     fi
     if [ "$hy2_obfs" = "" ]; then
-        hy2_obfs=$($singbox_path generate uuid)
+        hy2_obfs=$(${singbox_path} generate uuid)
         hy2_obfs=${hy2_obfs:0:8}
     fi
     if [ "$tuic_uuid" = "" ]; then
-        tuic_uuid=$($singbox_path generate uuid)
+        tuic_uuid=$(${singbox_path} generate uuid)
     fi
     if [ "$tuic_pass" = "" ]; then
-        tuic_pass=$($singbox_path generate uuid)
+        tuic_pass=$(${singbox_path} generate uuid)
         tuic_pass=${tuic_pass:0:8}
     fi
     echo "{
@@ -378,7 +378,7 @@ singbox() {
         }
     ]
 }" > config.json
-    nohup $singbox_path run &>/dev/null &
+    nohup ${singbox_path} run &>/dev/null &
     sleep 1
     rm config.json
 }
@@ -446,11 +446,11 @@ ${vless_xhttp_reality_link}
 ${hy2_link}
 ${tuic_link}" | base64 -w 0 > "$output_name"
 
-for pid_path in /proc/[0-9]*/; do
-  if [ -r "${pid_path}cmdline" ]; then
-    pid="${pid_path//[^0-9]/}"
-    echo -n "${pid}: "
-    xargs -0 < "${pid_path}cmdline"
-    echo
-  fi
-done
+# for pid_path in /proc/[0-9]*/; do
+#   if [ -r "${pid_path}cmdline" ]; then
+#     pid="${pid_path//[^0-9]/}"
+#     echo -n "${pid}: "
+#     xargs -0 < "${pid_path}cmdline"
+#     echo
+#   fi
+# done

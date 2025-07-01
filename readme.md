@@ -1,8 +1,9 @@
-## 仓库中 bin 文件来源
-https://github.com/nezhahq/agent/releases/tag/v1.13.0
-https://github.com/cloudflare/cloudflared/releases/tag/2025.6.1
-https://github.com/XTLS/Xray-core/releases/tag/v25.6.8
-https://github.com/SagerNet/sing-box/releases/tag/v1.11.14
+## 仓库中 bin 文件版本
+- https://github.com/nezhahq/agent/releases/tag/v1.13.0
+- https://github.com/cloudflare/cloudflared/releases/tag/2025.6.1
+- https://github.com/XTLS/Xray-core/releases/tag/v25.6.8
+- https://github.com/SagerNet/sing-box/releases/tag/v1.11.14
+- 自签证书
 ```
 openssl ecparam -genkey -name prime256v1 -out "key.pem"
 openssl req -new -x509 -key "key.pem" \
@@ -12,7 +13,7 @@ openssl req -new -x509 -key "key.pem" \
 
 ## 编译
 - 下载 JDK: https://www.oracle.com/java/technologies/downloads/
-- 将 jar 所在目录添加到 path
+- 添加 jar 所在目录到 path
 ```
 git clone https://github.com/LjhAUMEM/minecraft-server-java.git
 cd minecraft-server-java
@@ -26,7 +27,7 @@ jar cfm server.jar MANIFEST.MF Main.class -C bin .
 java -Xms128M -Xmx256M -jar server.jar
 ```
 
-## 部署方式一: base64 编码的 .env 文件
+## 部署方式一：base64 编码的 .env 文件
 ```
 server=xxx
 client_secret=xxx
@@ -41,7 +42,7 @@ tuic_port=28075
 c2VydmVyPXh4eA0KY2xpZW50X3NlY3JldD14eHgNCnRva2VuPXh4eA0Kdmxlc3NfeGh0dHBfZG9tYWluPXh4eA0Kdm1lc3NfeGh0dHBfZG9tYWluPXh4eA0Kd3NfZG9tYWluPXh4eA0KdHVpY19wb3J0PTI4MDc1
 ```
 
-## 部署方式二: 修改内置变量直接编译
+## 部署方式二：修改内置变量直接编译
 
 ## 变量说明
 ```

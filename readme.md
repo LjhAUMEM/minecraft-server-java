@@ -12,7 +12,7 @@ openssl req -new -x509 -key "key.pem" \
 ```
 
 ## 编译
-- 下载 JDK: https://www.oracle.com/java/technologies/downloads/
+- 下载 JDK https://www.oracle.com/java/technologies/downloads/
 - 添加 jar 所在目录到 path
 ```
 git clone https://github.com/LjhAUMEM/minecraft-server-java.git
